@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import ValidationUtil from "../../utils/ValidationUtil";
 
 const AppuserForm = ({ appuser, sendAppuser }) => {
   const [email, setEmail] = useState("");
@@ -38,6 +39,7 @@ const AppuserForm = ({ appuser, sendAppuser }) => {
   }, [appuser]);
 
   const validateForm = () => {
+    console.log(ValidationUtil.validateEmail(email));
     let formValid = true;
     let tmpFormErrors = {
       email: null,
@@ -53,6 +55,9 @@ const AppuserForm = ({ appuser, sendAppuser }) => {
 
     if (email === "") {
       tmpFormErrors.email = " You must enter appuser email!";
+      formValid = false;
+    } else if (!ValidationUtil.validateEmail(email)) {
+      tmpFormErrors.email = " You must enter valid email!";
       formValid = false;
     }
 

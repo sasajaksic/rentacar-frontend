@@ -1,4 +1,5 @@
 import ApiRoutes from "../config/ApiRoutes";
+import LoggedUserService from "./LoggedUserService";
 
 const VehicleService = {
   getAll: () => {
@@ -37,6 +38,7 @@ const VehicleService = {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
+          ...LoggedUserService.getHeadersForRequest(),
         },
         method: "PUT",
         body: JSON.stringify(vehicle),
@@ -59,6 +61,7 @@ const VehicleService = {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
+          ...LoggedUserService.getHeadersForRequest(),
         },
         method: "POST",
         body: JSON.stringify(vehicle),
@@ -78,6 +81,9 @@ const VehicleService = {
   deleteById: (vehicleId) => {
     return new Promise((resolve, reject) => {
       fetch(ApiRoutes.VEHICLE_BY_ID + vehicleId, {
+        headers: {
+          ...LoggedUserService.getHeadersForRequest(),
+        },
         method: "DELETE",
       })
         .then((response) => {

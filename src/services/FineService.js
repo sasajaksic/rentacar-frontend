@@ -1,9 +1,14 @@
 import ApiRoutes from "../config/ApiRoutes";
+import LoggedUserService from "../services/LoggedUserService";
 
 const FineService = {
   getAll: () => {
     return new Promise((resolve, reject) => {
-      fetch(ApiRoutes.ALL_FINES)
+      fetch(ApiRoutes.ALL_FINES, {
+        headers: {
+          ...LoggedUserService.getHeadersForRequest(),
+        },
+      })
         .then((response) => {
           if (!response.ok) {
             reject("nije ok");

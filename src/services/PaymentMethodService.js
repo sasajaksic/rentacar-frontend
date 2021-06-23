@@ -1,9 +1,14 @@
 import ApiRoutes from "../config/ApiRoutes";
+import LoggedUserService from "../services/LoggedUserService";
 
 const PaymentMethodService = {
   getAll: () => {
     return new Promise((resolve, reject) => {
-      fetch(ApiRoutes.ALL_PAYMENT_METHODS)
+      fetch(ApiRoutes.ALL_PAYMENT_METHODS, {
+        headers: {
+          ...LoggedUserService.getHeadersForRequest(),
+        },
+      })
         .then((response) => {
           if (!response.ok) {
             reject("nije ok");

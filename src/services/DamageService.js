@@ -1,9 +1,14 @@
 import ApiRoutes from "../config/ApiRoutes";
+import LoggedUserService from "../services/LoggedUserService";
 
 const DamageService = {
   getAll: () => {
     return new Promise((resolve, reject) => {
-      fetch(ApiRoutes.ALL_DAMAGES)
+      fetch(ApiRoutes.ALL_DAMAGES, {
+        headers: {
+          ...LoggedUserService.getHeadersForRequest(),
+        },
+      })
         .then((response) => {
           if (!response.ok) {
             reject("nije ok");
